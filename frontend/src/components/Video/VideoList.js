@@ -6,30 +6,39 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
-import { Link, useNavigate } from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 import axios from 'axios';
+import Header from "../Navbar/Header";
 
 export default function VideoList() {
+    const [loading, setLoading] = React.useState(true);
     const [videos, setVideos] = React.useState([])
+    const [token, setToken] = React.useState('')
     const navigate = useNavigate();
+
     React.useEffect(() => {
         async function fetchData() {
             try {
-                const token = localStorage.getItem('token');
+                setToken(localStorage.getItem('token'));
                 const {data} = await axios.get('http://localhost:3002/api/v1/video', {
                     headers: ({
                         Authorization: 'Bearer ' + token
                     })
                 });
                 setVideos(data)
-            } catch {
-                navigate('/')
+            } catch (err) {
+                console.log(err)
             }
         }
         fetchData();
-    }, [navigate]);
+        setLoading(false);
+    }, [navigate, loading, token, videos, setLoading, setToken, setVideos]);
+
+    if (loading) return <p>Loading</p>;
+
     return (
         <Container>
+            <Header />
             <Grid container spacing={2} marginTop={2}>
                     {videos.map((video) => {
                         return <Grid item xs={12} md={4} key={video._id}>

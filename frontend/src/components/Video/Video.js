@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Header from "../Navbar/Header";
 
 export default function VideoList() {
     const { id } = useParams();
@@ -31,6 +32,7 @@ export default function VideoList() {
     }, [videoId, navigate]);
     return (
         <Container>
+            <Header />
             <Grid item xs={12} md={12} marginTop={2}>
                 <CardActionArea component="a" href="#">
                     <Card sx={{ display: 'flex' }}>

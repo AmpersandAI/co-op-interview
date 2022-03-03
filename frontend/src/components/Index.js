@@ -1,6 +1,5 @@
 import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
-import Header from "./Navbar/Header";
 import VideoList from "./Video/VideoList";
 import Video from "./Video/Video";
 import {
@@ -13,7 +12,6 @@ export default function Index() {
     const isLoggedIn = Boolean(localStorage.getItem('token'));
     return (
         <div>
-            <Header isLoggedIn={isLoggedIn} />
             <BrowserRouter>
                 {isLoggedIn ?
                     <Routes>
