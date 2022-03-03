@@ -10,16 +10,12 @@
 
 ## Run Locally
 
-Clone the project
-
-```bash
-git clone https://github.com/zolotarev/VideoStreamApp.git
-```
-
 Go to the project directory
 
+Set up MongoDB docker container (Make sure docker is running)
+
 ```bash
-cd VideoStreamApp
+docker run --name mongodb -d -p 27017:27017 mongo
 ```
 
 Install dependencies
