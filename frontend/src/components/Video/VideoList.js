@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
-export default function VideoList({ setLoggedIn }) {
+export default function VideoList() {
     const [videos, setVideos] = React.useState([])
     const navigate = useNavigate();
     React.useEffect(() => {
@@ -22,18 +22,15 @@ export default function VideoList({ setLoggedIn }) {
                     })
                 });
                 setVideos(data)
-
             } catch {
-                setLoggedIn(false);
                 navigate('/')
             }
         }
         fetchData();
-    }, [navigate, setLoggedIn]);
+    }, [navigate]);
     return (
         <Container>
             <Grid container spacing={2} marginTop={2}>
-
                     {videos.map((video) => {
                         return <Grid item xs={12} md={4} key={video._id}>
                             <CardActionArea component="a" href="#">

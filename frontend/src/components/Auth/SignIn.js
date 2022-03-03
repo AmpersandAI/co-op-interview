@@ -14,9 +14,8 @@ import { useNavigate } from "react-router-dom"
 
 const theme = createTheme();
 
-export default function SignIn(props) {
-  const { setIsLoggedIn } = props
-  const [errrorMessage, setErrorMessage] = React.useState('')
+export default function SignIn() {
+  const [errorMessage, setErrorMessage] = React.useState('')
   let navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -31,7 +30,6 @@ export default function SignIn(props) {
       setErrorMessage(data.response)
     } else {
       localStorage.setItem('token', data.token);
-      setIsLoggedIn(true)
       navigate('/video')
     }
 
@@ -76,7 +74,7 @@ export default function SignIn(props) {
               autoComplete="current-password"
             />
             <Typography component="p" variant="p" color="red">
-              {errrorMessage}
+              {errorMessage}
             </Typography>
             <Button
               type="submit"

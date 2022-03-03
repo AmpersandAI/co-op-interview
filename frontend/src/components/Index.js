@@ -9,26 +9,24 @@ import {
     Route
 } from "react-router-dom";
 
-
-
-export default function Index(props) {
-    const { isLoggedIn, setLoggedIn } = props
+export default function Index() {
+    const isLoggedIn = Boolean(localStorage.getItem('token'));
     return (
         <div>
             <Header isLoggedIn={isLoggedIn} />
             <BrowserRouter>
                 {isLoggedIn ?
                     <Routes>
-                        <Route path="/video" element={<VideoList setLoggedIn={setLoggedIn}/>}>
+                        <Route path="/video" element={<VideoList />}>
                         </Route>
-                        <Route path="/video/:id" element={<Video setLoggedIn={setLoggedIn}/>}>
+                        <Route path="/video/:id" element={<Video />}>
                         </Route>
                     </Routes>
                     :
                     <Routes>
-                        <Route path="/" element={<SignIn setIsLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />}>
+                        <Route path="/" element={<SignIn />}>
                         </Route>
-                        <Route path="/signup" element={<SignUp setIsLoggedIn={setLoggedIn} />}>
+                        <Route path="/signup" element={<SignUp />}>
                         </Route>
                     </Routes>
                 }

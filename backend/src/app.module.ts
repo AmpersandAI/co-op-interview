@@ -19,20 +19,20 @@ import { isAuthenticated } from './app.middleware';
 
 @Module({
   imports: [
-     MongooseModule.forRoot('mongodb://localhost:27017/Stream'),
+    MongooseModule.forRoot('mongodb://localhost:27017/Stream'),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     MongooseModule.forFeature([{ name: Video.name, schema: VideoSchema }]),
 
-     MulterModule.register({
-       storage: diskStorage({
-         destination: './public',
-         filename: (req, file, cb) => {
-           const ext = file.mimetype.split('/')[1];
-           cb(null, `${uuidv4()}-${Date.now()}.${ext}`);
-         },
-       })
-     }),
-     JwtModule.register({
+    MulterModule.register({
+      storage: diskStorage({
+        destination: './public',
+        filename: (req, file, cb) => {
+          const ext = file.mimetype.split('/')[1];
+          cb(null, `${uuidv4()}-${Date.now()}.${ext}`);
+        },
+      }),
+    }),
+    JwtModule.register({
       secret,
       signOptions: { expiresIn: '2h' },
     }),
@@ -40,18 +40,15 @@ import { isAuthenticated } from './app.middleware';
       rootPath: join(__dirname, '..', 'public'),
     }),
   ],
- 
-controllers: [AppController, VideoController, UserController],
-providers: [AppService, VideoService, UserService],
-})
 
+  controllers: [AppController, VideoController, UserController],
+  providers: [AppService, VideoService, UserService],
+})
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(isAuthenticated)
-      .exclude(
-        { path: 'api/v1/video/:id', method: RequestMethod.GET }
-      )
+      .exclude({ path: 'api/v1/video/:id', method: RequestMethod.GET })
       .forRoutes(VideoController);
   }
 }
